@@ -1,6 +1,6 @@
 # Hermes Training Summary v1
 
-Consolidated training outcomes from early Hermes / Money Compass astrology-agent sessions.
+Consolidated training outcomes from Hermes / Money Compass astrology-agent sessions.
 
 **Version:** 1  
 **Status:** Active  
@@ -8,40 +8,110 @@ Consolidated training outcomes from early Hermes / Money Compass astrology-agent
 
 ---
 
-## What Was Trained
+## Strict Astrology Workflow
 
-Hermes was trained to perform **transit-to-natal** analysis for money/gambling timing with:
+All chart analysis follows a **compute-first** workflow. Interpretation is always last.
 
-1. Strict compute-first ordering (positions → aspects → houses → interpret)
-2. Standard notation for aspects and cusp activations
-3. Poker-specific house-ruler model (2/3/5/6/8/11)
-4. Window quality framework (exact repeats, functional repeats, support, risk)
-5. Mandatory practical instruction block for poker windows
-6. Case-based pattern validation (Dzmitry poker, Dimasik/Shay casino)
+| Step | Name | Action |
+|------|------|--------|
+| **1** | Raw transit positions | List transiting planet positions (sign, degree, retrograde). No interpretation. |
+| **2** | Exact aspects with orbs | List every transit-to-natal aspect to planets and relevant cusps. Include exact angle and orb. No interpretation. |
+| **3** | Natal house placement | Record which natal house each transiting planet occupies. No interpretation. |
+| **4** | Interpretation | Apply domain model, house-ruler layers, support/risk, and synthesis. Only after Steps 1–3 are complete. |
 
----
+**Rule:** Never skip steps. Never interpret before computed facts are listed.
 
-## Non-Negotiable Behaviors
-
-| Rule | Detail |
-|------|--------|
-| Method | Transit-to-natal primary; event chart optional and separated |
-| Order | Never interpret before listing positions, aspects, and house placements |
-| Notation | `transiting X → natal Y` with degrees and orb |
-| Poker priority | House rulers → key natal planets → transit house placement → cusp activation |
-| Output | Practical instruction block at end of every poker window analysis |
-| Math | Never invent ephemeris data — use engine output or state unavailability |
+Full detail: `docs/operating_protocol.md`
 
 ---
 
-## Domain Models Trained
+## Primary Method: Transit-to-Natal
 
-| Model | File | Context |
-|-------|------|---------|
-| Poker | `poker_model.md` | Tournament / cash timing windows |
-| Casino | `casino_model.md` | Session-based gambling |
-| Window logic | `general_window_logic.md` | Cross-domain repeat/support/risk |
-| Practical block | `practical_instruction_block.md` | User-facing action guidance |
+**Transit-to-natal** is the primary and default method for all Money Compass / Hermes work.
+
+Compare the **current sky** to the **native's birth chart** to determine how a moment activates that chart.
+
+---
+
+## Event Chart: Optional, Separate Layer
+
+Event charts (e.g., tournament start time and location) may be used as an **optional overlay**.
+
+**Rules:**
+
+- Event chart is never a substitute for transit-to-natal
+- If used, it must appear in a **clearly labeled separate section**
+- Do not mix event-chart conclusions into transit-to-natal analysis without explicit labeling
+
+Example section title: `EVENT CHART OVERLAY (OPTIONAL — SEPARATE)`
+
+---
+
+## Strict Notation Standard
+
+All aspects use transit-to-natal arrow notation:
+
+**Planets:**
+```
+transiting [planet] → natal [planet]
+```
+
+**Cusps:**
+```
+transiting [planet] → natal [house] cusp
+```
+
+Whenever possible, include:
+
+- Exact degrees (transiting and natal)
+- Exact angle (0°, 60°, 90°, 120°, 180°)
+- Orb
+
+---
+
+## Poker Window Output Requirement
+
+Every **poker window analysis** must end with the **Practical Instruction Block**.
+
+Required sections:
+
+1. How to play the window
+2. What to avoid
+3. Main edge
+4. Main danger
+5. Best style of play
+6. Bankroll instruction
+7. Emotional-control instruction
+
+Template: `training/practical_instruction_block.md`
+
+---
+
+## Poker Analysis Hierarchy
+
+When interpreting poker windows, apply layers in this order:
+
+1. House-ruler layer (2, 3, 5, 6, 8, 11)
+2. Key natal planets layer
+3. Natal house placement of transits
+4. Natal house cusp activation layer
+
+Detail: `training/poker_model.md`
+
+---
+
+## Window Quality Framework
+
+Poker windows are evaluated using four pattern classes:
+
+| Class | Description |
+|-------|-------------|
+| **Exact repeats** | Same transit-to-natal geometry across multiple winning events |
+| **Functional repeats** | Different geometry activating the same house-ruler layer |
+| **Contextual support** | Configurations that strengthen the window without being repeats |
+| **Contextual risks** | Configurations that weaken the window or trigger avoidance |
+
+Detail: `training/general_window_logic.md`, `docs/pattern_taxonomy.md`
 
 ---
 
@@ -49,41 +119,76 @@ Hermes was trained to perform **transit-to-natal** analysis for money/gambling t
 
 | Case | Key Finding |
 |------|-------------|
-| `dzmitry_poker` | Repeated winning signature across 3 tournaments: luck + cognition + aggression + discipline + timing |
-| `dimasik_shay_casino` | Separate winning/risk signature sets for casino context |
+| `dzmitry_poker` | Three tournament wins share a composite signature: **luck + cognition + aggression + discipline + timing** |
+| `dimasik_shay_casino` | Casino winning/risk signatures (separate model) |
+
+Case patterns: `cases/dzmitry_poker/repeated_patterns.md`
+
+---
+
+## Non-Negotiable Behaviors
+
+| Rule | Detail |
+|------|--------|
+| Workflow | Positions → aspects → house placement → interpretation |
+| Method | Transit-to-natal primary; event chart optional and separated |
+| Notation | `transiting X → natal Y` with degrees and orb |
+| Poker output | Practical instruction block required at end of every poker window analysis |
+| Math | Never invent ephemeris data — use engine output or state unavailability |
+
+---
+
+## Domain Models
+
+| Model | File |
+|-------|------|
+| Poker house-ruler model | `training/poker_model.md` |
+| Casino model | `training/casino_model.md` |
+| Window logic | `training/general_window_logic.md` |
+| Practical block | `training/practical_instruction_block.md` |
 
 ---
 
 ## Prompt Assets
 
-Located in `prompts/`:
-
-- `strict_transit_to_natal.md` — enforces protocol
-- `technical_reset.md` — recenter agent on compute-first workflow
-- `poker_window_search.md` — window discovery and scoring
-- `pattern_match_classification.md` — taxonomy application
-- `practical_block_prompt.md` — footer generation
-- `training_consolidation.md` — post-session knowledge capture
+| Prompt | Purpose |
+|--------|---------|
+| `prompts/strict_transit_to_natal.md` | Enforce 4-step protocol |
+| `prompts/technical_reset.md` | Recover from interpretation-first drift |
+| `prompts/poker_window_search.md` | Window discovery and scoring |
+| `prompts/pattern_match_classification.md` | Classify exact/functional/support/risk |
+| `prompts/practical_block_prompt.md` | Generate mandatory footer |
+| `prompts/training_consolidation.md` | Post-session knowledge capture |
 
 ---
 
 ## Structured Rules
 
-Located in `rules/`:
+| File | Purpose |
+|------|---------|
+| `rules/house_ruler_mapping.yaml` | House functions and ruler tags |
+| `rules/poker_window_rules.yaml` | Window scoring references |
+| `rules/risk_flags.yaml` | Contextual risk definitions |
+| `rules/scoring_dimensions.yaml` | Dimension weights |
 
-- `house_ruler_mapping.yaml` — poker house functions and ruler tags
-- `poker_window_rules.yaml` — window scoring logic references
-- `risk_flags.yaml` — contextual risk definitions
-- `scoring_dimensions.yaml` — dimension weights for window quality
+---
+
+## Engine vs. Agent Boundary
+
+| Layer | Owner |
+|-------|-------|
+| Ephemeris, positions, aspects, orbs, cusps | Deterministic engine |
+| Protocol Steps 1–3 listing | Agent (from engine output) |
+| Pattern matching, case recall, practical synthesis | Agent (from this repo) |
+| Inventing chart data | **Forbidden** |
 
 ---
 
 ## Gaps for v2
 
-- Engine-verified aspect lists for all three Dzmitry tournaments
-- Negative cases (lost sessions) for contrast
-- Orb thresholds locked with product team
-- Casino model validation beyond initial Dimasik/Shay notes
+- Engine-verified aspect lists populated in `cases/dzmitry_poker/tournament_*.md`
+- Negative cases (non-winning sessions) for contrast
+- Orb thresholds finalized against engine data
 
 ---
 
@@ -91,7 +196,7 @@ Located in `rules/`:
 
 1. Run `prompts/training_consolidation.md`
 2. Update relevant case or training doc
-3. Add patterns to `repeated_patterns.md` or signatures files if validated
+3. Add validated patterns to `repeated_patterns.md`
 4. Update YAML rules if new flags or dimensions emerge
 5. Log experiments in `notes/experiments.md`
 6. Bump this summary or create v2 when protocol changes

@@ -1,106 +1,161 @@
 # Repeated Patterns — Dzmitry Poker
 
-Consolidated winning patterns from **three tournament wins**. Update when engine-verified aspects are populated in tournament files.
+Consolidated winning patterns from **three validated tournament wins**.
+
+Use this file when scoring future poker windows for Dzmitry. Populate exact aspect rows in tournament files when engine data is available.
 
 ---
 
 ## Core Poker-Winning Signature
 
-Validated composite across all three wins:
+All three wins share this composite:
 
 ```
 luck + cognition + aggression + discipline + timing
 ```
 
-| Component | Meaning | Primary Astro Layers |
-|-----------|---------|----------------------|
-| **Luck** | Favorable variance, prize flow | 11th, Jupiter, benefic WIN support |
-| **Cognition** | Reads, ranging, tactical clarity | 3rd, Venus, Mercury |
-| **Aggression** | Controlled push, value extraction | 5th, Mars, 8th/Venus pot layer |
-| **Discipline** | Execution, tilt control, stamina | 6th, Moon |
-| **Timing** | Exact/functional repeats, tight orbs | Cross-event aspect recurrence |
+| Component | Poker meaning | Primary layer (Dzmitry) |
+|-----------|---------------|-------------------------|
+| **Luck** | Favorable variance, prize flow, deep-run potential | 11th / Jupiter |
+| **Cognition** | Hand reading, ranging, short-range tactical clarity | 3rd / Venus |
+| **Aggression** | Controlled push, game energy, value-seeking play | 5th / Mercury |
+| **Discipline** | Execution quality, tilt control, stamina | 6th / Moon |
+| **Timing** | Recurring transit patterns across winning events | Exact and functional repeats |
 
-**Rule:** A future window that shows luck (11th) without discipline (6th) support is **not** a full signature match.
-
----
-
-## Exact Repeated Signatures
-
-_Aspects that recur with same transiting planet → same natal target → same aspect type across 2+ wins._
-
-| # | Aspect | T1 | T2 | T3 | Max Orb | Domain |
-|---|--------|----|----|-----|---------|--------|
-| E1 | transiting Jupiter → natal 11th ruler (trine/sextile) | ✓ | ✓ | ✓ | _°_ | WIN, LUCK |
-| E2 | transiting Venus → natal Mars (2nd ruler) | ✓ | ✓ | — | _°_ | BANKROLL |
-| E3 | _[add from engine]_ | | | | | |
-
-**Placeholder note:** Replace E1–E3 with engine-verified rows. Mark ✓ only when aspect confirmed in tournament file.
+**Validation rule:** A future window that shows **luck without discipline** is not a full signature match — even if the 11th/WIN layer looks strong.
 
 ---
 
-## Functional Repeated Signatures
+## Pattern Classes
 
-_Different geometry, same functional layer activated across wins._
+Four classes are used to evaluate any poker window against this case.
 
-| # | Functional Layer | Win A Config | Win B Config | Win C Config |
-|---|------------------|--------------|--------------|--------------|
-| F1 | WIN (11th) | Jup → 11th ruler | Jup → 11th cusp | benefic in natal 11th |
-| F2 | READ (3rd) | Merc → Venus (3rd ruler) | Venus trine natal Mercury | transiting Mercury in natal 3rd |
-| F3 | DISCIPLINE (6th) | Moon supported | Moon in natal 6th + trine | no hard hit to Moon |
-| F4 | PLAY (5th) | Mercury activated | Mars-Mercury synergy | 5th cusp hit |
+### 1. Exact repeats
 
----
+The **same** transit-to-natal configuration recurs across multiple winning events:
 
-## Strongest Support Indicators (Ranked)
+- Same transiting planet
+- Same natal target (planet or cusp)
+- Same aspect type
+- Orb within agreed tolerance (document per match)
 
-1. **11th / Jupiter layer active** — win/prize flow present in all three events
-2. **3rd / Venus read support** — tactical clarity, social/table reads
-3. **5th / Mercury game activation** — smart aggression, correct gamble frequency
-4. **6th / Moon stable** — discipline held under variance
-5. **2nd / Mars bankroll** — stack pressure managed, not collapsed
-6. **8th / Venus pot extraction** — value from opponents' money
+**Use:** Highest-confidence signal. Flag first when scanning future windows.
 
----
+**Documentation format:**
+```
+transiting [planet] → natal [target]: [aspect], orb [X]°
+Present in: tournament_1, tournament_2, tournament_3
+```
 
-## Strongest Risk Indicators (Seen but Managed)
-
-_Risks that appeared in one or more wins but did not veto outcome — still flag in future windows._
-
-| Risk | Layer | Typical signature | Future window action |
-|------|-------|-------------------|----------------------|
-| Tilt susceptibility | 6th/Moon | Moon square Saturn | Strict emotional-control block |
-| Spew impulse | 5th/Mercury | Mercury afflicted | Tighten aggression guidance |
-| Bankroll stress | 2nd/Mars | Mars-Saturn hard aspect | Lower buy-in cap |
-| False luck | 11th | Jupiter without 6th | Downgrade tier despite bright WIN |
+Populate specific rows from engine output in `tournament_1.md`, `tournament_2.md`, `tournament_3.md`.
 
 ---
 
-## Pattern Confidence Tiers
+### 2. Functional repeats
 
-| Tier | Definition | This case |
-|------|------------|-----------|
-| **A** | Exact repeat in 3/3 wins | _list after engine pass_ |
-| **B** | Exact in 2/3 or functional in 3/3 | _list_ |
-| **C** | Contextual support only | _list_ |
+**Different** transit geometry that activates the **same house-ruler layer** across wins.
+
+Examples of functional equivalence (layer level — not specific claims):
+
+| Layer | Functional repeat means… |
+|-------|--------------------------|
+| WIN (11th / Jupiter) | Different transits both supporting win/prize flow |
+| READ (3rd / Venus) | Different transits both supporting tactical clarity |
+| PLAY (5th / Mercury) | Different transits both supporting game/risk energy |
+| DISCIPLINE (6th / Moon) | Different transits both supporting stable execution |
+| BANKROLL (2nd / Mars) | Different transits both supporting stack/bankroll poise |
+| POT (8th / Venus) | Different transits both supporting value extraction |
+
+**Use:** Second-highest confidence. Requires explicit mapping to a house-ruler layer.
 
 ---
 
-## Application to Future Windows
+### 3. Contextual support
 
-When analyzing Dzmitry poker windows:
+Configurations that **strengthen** the window but are not exact or functional repeats:
 
-1. Score exact repeats first (highest weight)
-2. Map functional repeats to layers
-3. Verify composite signature — all five components present or explicitly absent with mitigation
-4. Apply risk table — any active veto flag overrides isolated WIN support
-5. Output `training/practical_instruction_block.md`
+- Constructive transits to key natal planets (Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn)
+- Favorable natal house placement of transiting planets (e.g., benefic transit through natal 11th)
+- Tight supportive aspects to house cusps
+- Multiple poker layers showing support in the same window
 
-See `future_windows.md` for upcoming dates.
+**Use:** Raises window quality. Does not alone validate a winning pattern.
+
+---
+
+### 4. Contextual risks
+
+Configurations that **weaken** the window or argue for caution:
+
+- DISCIPLINE layer (6th / Moon) under stress while PLAY layer (5th / Mercury) is pushing
+- BANKROLL layer (2nd / Mars) afflicted during aggressive session
+- WIN layer (11th / Jupiter) bright without DISCIPLINE support — "false luck" pattern
+- Any active risk that contradicts the composite signature
+
+**Use:** Downgrades window tier or triggers avoid recommendation. Document even in otherwise strong windows.
+
+Cross-reference: `rules/risk_flags.yaml`
+
+---
+
+## Strongest Support Indicators (Across 3 Wins)
+
+Ranked by consistent presence in the validated winning pattern:
+
+| Rank | Layer | Ruler | Support means… |
+|------|-------|-------|----------------|
+| 1 | WIN | Jupiter (11th) | Prize flow, favorable variance, deep-run support |
+| 2 | READ | Venus (3rd) | Tactical clarity, accurate ranging |
+| 3 | PLAY | Mercury (5th) | Smart aggression, correct gamble frequency |
+| 4 | DISCIPLINE | Moon (6th) | Stable execution, tilt held in check |
+| 5 | BANKROLL | Mars (2nd) | Stack pressure managed |
+| 6 | POT | Venus (8th) | Value extraction from opponents' money |
+
+All six layers contribute; the **composite signature** requires luck + cognition + aggression + discipline + timing working together — not an isolated WIN signal.
+
+---
+
+## Strongest Risk Indicators (Flag in Future Windows)
+
+Risks to watch for even when other layers look supportive:
+
+| Risk | Layer | Why it matters |
+|------|-------|----------------|
+| Discipline breakdown | 6th / Moon | Tilt, execution collapse — vetoes full signature |
+| Spew / over-aggression | 5th / Mercury | Unbalanced gamble frequency |
+| Bankroll stress | 2nd / Mars | Stack pressure, rebuy spiral |
+| False luck | 11th / Jupiter without 6th | Bright WIN signal without discipline backing |
+
+When a risk is active, reflect it in the **Practical Instruction Block** (bankroll and emotional-control sections especially).
+
+---
+
+## How to Apply This Case to Future Analysis
+
+1. Run strict 4-step protocol (`docs/operating_protocol.md`)
+2. Evaluate house-ruler layers in hierarchy order (`training/poker_model.md`)
+3. **Exact repeats** — match against tournament_1/2/3 aspect lists (when populated)
+4. **Functional repeats** — map aspects to layers 2/3/5/6/8/11
+5. Add **contextual support** and subtract **contextual risks**
+6. Check **composite signature**: luck + cognition + aggression + discipline + timing — full, partial, or absent
+7. End with **Practical Instruction Block** (`training/practical_instruction_block.md`)
+
+Upcoming targets: `future_windows.md` (12 Jun 2026, 19 Jun 2026)
+
+---
+
+## Exact Repeat Log
+
+_Populate from engine-verified data in tournament files. Do not mark an aspect as an exact repeat until confirmed in 2+ tournament analyses._
+
+| ID | Aspect (transit → natal) | T1 | T2 | T3 | Layer |
+|----|--------------------------|----|----|-----|-------|
+| | _pending engine data_ | | | | |
 
 ---
 
 ## Maintenance
 
-- [ ] Replace placeholder rows with engine data from tournament_1/2/3
-- [ ] Add negative case contrasts when available
-- [ ] Sync new A-tier patterns to `rules/poker_window_rules.yaml`
+- [ ] Populate exact repeat log from `tournament_1.md`, `tournament_2.md`, `tournament_3.md`
+- [ ] Add negative case (non-winning session) for contrast
+- [ ] Sync confirmed exact repeats to `rules/poker_window_rules.yaml`
