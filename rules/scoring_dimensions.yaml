@@ -1,0 +1,115 @@
+# Scoring Dimensions — Window Quality
+# Weights for poker (and shared casino) window synthesis
+# Version: 1
+
+schema_version: 1
+
+scale:
+  min: 0
+  max: 100
+
+dimensions:
+  exact_repeats:
+    weight: 25
+    max_contribution: 50
+    description: "Same aspect geometry as validated case events"
+    per_match_score: 25
+
+  functional_repeats:
+    weight: 15
+    max_contribution: 45
+    description: "Same functional layer, different geometry"
+    per_match_score: 15
+
+  contextual_support:
+    weight: 8
+    max_contribution: 32
+    description: "Benefic reinforcement, favorable transit houses"
+    per_item_score: 8
+
+  contextual_risk:
+    weight: -12
+    max_contribution: -48
+    description: "Afflictions, malefic pressure on rulers"
+    per_item_score: -12
+
+  composite_signature:
+    weight: 20
+    max_contribution: 20
+    description: "luck + cognition + aggression + discipline + timing"
+    components:
+      luck:
+        points: 4
+        indicators: [WIN, LUCK, "11th support"]
+      cognition:
+        points: 4
+        indicators: [READ, EDGE, "3rd support"]
+      aggression:
+        points: 4
+        indicators: [PLAY, "5th support"]
+      discipline:
+        points: 4
+        indicators: [DISCIPLINE, "6th clear"]
+      timing:
+        points: 4
+        indicators: [exact_repeat, tight_orbs, "multiple layer activation"]
+
+layer_dimension_map:
+  BANKROLL:
+    house: 2
+    priority: 1
+    strong_support_bonus: 5
+    major_risk_penalty: -15
+
+  READ:
+    house: 3
+    priority: 2
+    strong_support_bonus: 4
+    major_risk_penalty: -10
+
+  PLAY:
+    house: 5
+    priority: 2
+    strong_support_bonus: 4
+    major_risk_penalty: -12
+
+  DISCIPLINE:
+    house: 6
+    priority: 1
+    strong_support_bonus: 6
+    major_risk_penalty: -20
+    note: "Discipline risk weighs heavier than play support"
+
+  POT:
+    house: 8
+    priority: 3
+    strong_support_bonus: 3
+    major_risk_penalty: -8
+
+  WIN:
+    house: 11
+    priority: 1
+    strong_support_bonus: 6
+    major_risk_penalty: -10
+
+tier_thresholds:
+  strong: 75
+  moderate: 50
+  weak: 25
+  avoid: 0
+
+interpretation_priority:
+  - house_ruler_layer
+  - key_natal_planets
+  - natal_house_placement_of_transits
+  - natal_house_cusp_activation
+
+output:
+  include_tier: true
+  include_dimension_breakdown: true
+  mandatory_practical_block: true
+
+references:
+  poker_rules: rules/poker_window_rules.yaml
+  risk_flags: rules/risk_flags.yaml
+  practical_block: training/practical_instruction_block.md

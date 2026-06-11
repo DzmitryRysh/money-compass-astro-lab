@@ -1,0 +1,105 @@
+# Risk Flags — Money Compass / Hermes
+# Contextual risk definitions for poker and casino windows
+# Version: 1
+
+schema_version: 1
+
+severity_levels:
+  veto: "Override positive signals; recommend avoid"
+  major: "Significant downgrade; strict mitigation required"
+  minor: "Note in practical block; manageable with discipline"
+
+flags:
+  - id: DISCIPLINE_COLLAPSE
+    severity: veto
+    domain: [poker, casino]
+    layers: [DISCIPLINE, EXEC]
+    description: "6th ruler or Moon under hard Saturn/Mars/Neptune stress without benefic mitigation"
+    typical_aspects:
+      - "transiting Saturn → natal Moon"
+      - "transiting Neptune → natal 6th ruler"
+      - "transiting Mars → natal Moon (square/opposition)"
+    mitigation: "Do not play or zero buy-in; mandatory exit triggers"
+    practical_block_emphasis: emotional_control
+
+  - id: BANKROLL_STRESS
+    severity: major
+    domain: [poker, casino]
+    layers: [BANKROLL]
+    description: "2nd ruler afflicted; stack/bankroll pressure astro-active"
+    typical_aspects:
+      - "transiting Saturn → natal 2nd ruler"
+      - "transiting Neptune → natal 2nd ruler"
+      - "transiting Mars → natal 2nd ruler (hard aspect)"
+    mitigation: "Reduce buy-in 50%+; single bullet; hard stop-loss"
+    practical_block_emphasis: bankroll
+
+  - id: AGGRESSION_WITHOUT_DISCIPLINE
+    severity: veto
+    domain: [poker]
+    layers: [PLAY, DISCIPLINE]
+    description: "Strong 5th/Mars push while 6th layer in collapse"
+    condition: "5th support active AND DISCIPLINE_COLLAPSE or major 6th risk"
+    mitigation: "Avoid — spew pattern"
+    practical_block_emphasis: what_to_avoid
+
+  - id: FALSE_LUCK
+    severity: major
+    domain: [poker, casino]
+    layers: [WIN, DISCIPLINE]
+    description: "11th/Jupiter bright but 6th discipline absent or afflicted"
+    condition: "WIN support present AND 6th major risk or no discipline support"
+    mitigation: "Downgrade tier; no bankroll increase; tight emotional control"
+    practical_block_emphasis: main_danger
+
+  - id: SPEW_IMPULSE
+    severity: major
+    domain: [poker]
+    layers: [PLAY]
+    description: "Mercury/5th afflicted — unbalanced gamble frequency"
+    typical_aspects:
+      - "transiting Neptune → natal Mercury"
+      - "transiting Mars → natal 5th ruler (hard aspect)"
+    mitigation: "Tight-aggressive only; no bluff-heavy lines"
+    practical_block_emphasis: best_style_of_play
+
+  - id: POT_OVERCOMMIT
+    severity: minor
+    domain: [poker]
+    layers: [POT, BANKROLL]
+    description: "8th activated without 2nd support — bad pot odds pursuit"
+    typical_aspects:
+      - "transiting Pluto → natal 8th ruler"
+      - "transiting Mars → natal Venus (8th ruler in Dzmitry case)"
+    mitigation: "Pot odds discipline; fold more marginal calls"
+    practical_block_emphasis: what_to_avoid
+
+  - id: NEPTUNE_CHASE
+    severity: major
+    domain: [casino]
+    layers: [PLAY, BANKROLL]
+    description: "Neptune fog on 5th or 2nd — chase spiral risk"
+    typical_aspects:
+      - "transiting Neptune → natal 5th ruler"
+      - "transiting Neptune in natal 2nd"
+    mitigation: "Hard session cap; pre-set walk-away amount"
+    case_ref: dimasik_shay_casino/risk_signatures.md#RISK-C01
+
+  - id: SATURN_11TH_GRIND
+    severity: major
+    domain: [casino]
+    layers: [WIN]
+    description: "Slow bleed; false hope on 11th layer"
+    typical_aspects:
+      - "transiting Saturn → natal 11th ruler"
+    mitigation: "Short session; entertainment budget only"
+    case_ref: dimasik_shay_casino/risk_signatures.md#RISK-C02
+
+veto_combinations:
+  - flags: [NEPTUNE_CHASE, DISCIPLINE_COLLAPSE]
+    domain: casino
+    action: avoid_session
+
+  - flags: [AGGRESSION_WITHOUT_DISCIPLINE]
+    domain: poker
+    action: avoid_session

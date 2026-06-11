@@ -1,0 +1,121 @@
+# Poker Window Rules
+# Scoring logic references for window search and pattern matching
+# Version: 1
+
+schema_version: 1
+domain: poker
+method: transit_to_natal
+
+orb_thresholds:
+  exact_repeat_max_orb_deg: 2.0
+  tight_aspect_deg: 1.0
+  standard_aspect_deg: 3.0
+  cusp_activation_max_orb_deg: 2.5
+
+window_tiers:
+  strong:
+    min_score: 75
+    requirements:
+      - at_least_one_exact_or_functional_repeat
+      - no_veto_risk_flags
+      - discipline_layer_clear
+      - composite_signature_partial_or_full
+
+  moderate:
+    min_score: 50
+    max_score: 74
+    requirements:
+      - contextual_support_present
+      - no_more_than_one_major_risk
+
+  weak:
+    min_score: 25
+    max_score: 49
+    requirements:
+      - isolated_win_or_play_signal_allowed
+
+  avoid:
+    max_score: 24
+    triggers:
+      - any_veto_risk_flag
+      - discipline_collapse_with_aggression_push
+      - bankroll_risk_with_no_mitigation
+
+pattern_weights:
+  exact_repeat: 25
+  functional_repeat: 15
+  contextual_support: 8
+  contextual_risk: -12
+  major_risk: -20
+  veto_risk: -100
+
+layer_checks:
+  required_for_strong:
+    - WIN
+    - DISCIPLINE
+  optional_uplift:
+    - BANKROLL
+    - READ
+    - PLAY
+    - POT
+
+exact_repeat_catalog:
+  - id: E1
+    aspect_pattern: "transiting Jupiter → natal 11th ruler"
+    aspect_types: [trine, sextile]
+    max_orb_deg: 2.0
+    tags: [WIN, LUCK]
+    case: dzmitry_poker
+    validated_events: 3
+
+  - id: E2
+    aspect_pattern: "transiting Venus → natal Mars"
+    description: "2nd ruler (Mars) support — Dzmitry chart specific"
+    aspect_types: [trine, sextile, conjunction]
+    max_orb_deg: 2.0
+    tags: [BANKROLL]
+    case: dzmitry_poker
+    validated_events: 2
+    native_specific: true
+
+functional_repeat_groups:
+  - id: F_WIN
+    layer: WIN
+    tags: [WIN, LUCK]
+    any_of:
+      - "transiting Jupiter → natal 11th ruler"
+      - "transiting Jupiter → natal 11th cusp"
+      - "transiting benefic in natal 11th house"
+
+  - id: F_DISCIPLINE
+    layer: DISCIPLINE
+    tags: [DISCIPLINE, EXEC]
+    any_of:
+      - "6th ruler supported (trine/sextile from benefic)"
+      - "transiting Moon → natal 6th ruler (constructive aspect)"
+      - "no hard aspect to 6th ruler active"
+
+  - id: F_READ
+    layer: READ
+    tags: [READ, EDGE]
+    any_of:
+      - "transiting Mercury → natal 3rd ruler"
+      - "transiting Venus → natal 3rd ruler"
+      - "transiting Mercury in natal 3rd house"
+
+output_requirements:
+  mandatory_footer: practical_instruction_block
+  reference: training/practical_instruction_block.md
+
+future_window_targets:
+  - date: "2026-06-12"
+    case: dzmitry_poker
+    status: pending
+  - date: "2026-06-19"
+    case: dzmitry_poker
+    status: pending
+
+casino_cross_reference:
+  model: training/casino_model.md
+  case: dimasik_shay_casino
+  note: "Casino uses overlapping 2/5/6/8/11 layers; 3rd house lower priority"

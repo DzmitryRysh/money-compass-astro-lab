@@ -1,0 +1,48 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+secrets/
+secrets.json
+*.pem
+*.key
+credentials.json
+credentials/
+
+# OS junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Editor and IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.cursor/
+
+# Python cache (if scripts are added later)
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+.venv/
+venv/
+env/
+
+# Node (if tooling is added later)
+node_modules/
+npm-debug.log*
+
+# Build and temp
+dist/
+build/
+*.tmp
+*.temp
+.cache/
+
+# Local exports and scratch (keep repo clean; structured exports go in data/exports/ intentionally)
+*.local
+scratch/

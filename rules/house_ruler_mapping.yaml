@@ -1,0 +1,96 @@
+# House Ruler Mapping — Poker Model
+# Native-specific rulers resolved from chart; this file defines house FUNCTIONS
+# and example mapping from validated Dzmitry case.
+# Version: 1
+
+schema_version: 1
+domain: poker
+method: transit_to_natal
+
+houses:
+  2:
+    name: second
+    function: bankroll
+    poker_meaning: "Personal money, chips behind, rebuy capacity, financial pressure"
+    tags: [BANKROLL]
+    example_ruler_dzmitry: Mars
+    ruler_resolves_from: natal_chart
+
+  3:
+    name: third
+    function: tactical_reading
+    poker_meaning: "Hand reading, short-range strategy, table dynamics"
+    tags: [READ, EDGE]
+    example_ruler_dzmitry: Venus
+    ruler_resolves_from: natal_chart
+
+  5:
+    name: fifth
+    function: game_risk_play
+    poker_meaning: "Gamble impulse, creative aggression, bold lines"
+    tags: [PLAY]
+    example_ruler_dzmitry: Mercury
+    ruler_resolves_from: natal_chart
+
+  6:
+    name: sixth
+    function: discipline_execution
+    poker_meaning: "Execution quality, tilt control, stamina, routine"
+    tags: [EXEC, DISCIPLINE]
+    example_ruler_dzmitry: Moon
+    ruler_resolves_from: natal_chart
+
+  8:
+    name: eighth
+    function: pot_opm
+    poker_meaning: "Other people's money, the pot, value extraction, ICM"
+    tags: [POT]
+    example_ruler_dzmitry: Venus
+    ruler_resolves_from: natal_chart
+
+  11:
+    name: eleventh
+    function: win_prize
+    poker_meaning: "Prize, placement, favorable result, variance tilt"
+    tags: [WIN, LUCK]
+    example_ruler_dzmitry: Jupiter
+    ruler_resolves_from: natal_chart
+
+interpretation_priority:
+  - house_ruler_layer
+  - key_natal_planets
+  - natal_house_placement_of_transits
+  - natal_house_cusp_activation
+
+key_natal_planets:
+  - Sun
+  - Moon
+  - Mercury
+  - Venus
+  - Mars
+  - Jupiter
+  - Saturn
+
+support_aspects:
+  - trine
+  - sextile
+  - conjunction
+
+risk_aspects:
+  - square
+  - opposition
+  - conjunction
+
+composite_winning_signature:
+  components:
+    - luck
+    - cognition
+    - aggression
+    - discipline
+    - timing
+  astro_mapping:
+    luck: [WIN, LUCK, "11th", Jupiter]
+    cognition: [READ, EDGE, "3rd", Mercury, Venus]
+    aggression: [PLAY, "5th", Mars]
+    discipline: [DISCIPLINE, EXEC, "6th", Moon]
+    timing: [exact_repeat, functional_repeat, tight_orbs]
