@@ -4,7 +4,71 @@ Consolidated training outcomes from Hermes / Money Compass astrology-agent sessi
 
 **Version:** 1  
 **Status:** Active  
-**Last updated:** 2026-06-11
+**Last updated:** 2026-06-11 (technical lessons added)
+
+---
+
+## Technical Lessons Learned
+
+Validated fixes from Hermes training sessions. Permanent rules — not one-off corrections.
+
+### UTC conversion bug (corrected)
+
+A previous **Moon position error** was caused by incorrect local time → UTC conversion.
+
+**Hollywood, FL offset rules:**
+
+| Season | Zone | UTC offset |
+|--------|------|------------|
+| Summer (DST) | EDT | UTC−4 |
+| Winter | EST | UTC−5 |
+
+**Permanent rule:** Every technical verification must explicitly show:
+
+- **Local timestamp used**
+- **UTC timestamp used**
+
+Documented in `docs/operating_protocol.md`. Regression logged in `notes/experiments.md` (11 June 2026 Moon mismatch).
+
+### Wrap-around natal house placement bug (corrected)
+
+House assignment failed when a natal house **crosses the 360°/0° boundary** (Pisces → Aries).
+
+**Validated natal chart reference (Dzmitry case):**
+
+| Cusp | Degree |
+|------|--------|
+| House 1 | Aquarius 10°0′ |
+| House 2 | Aries 16°0′ |
+
+**House 1 span:** Aquarius 10° → Pisces → Aries 16°
+
+Therefore any **Aries position from 0° to 16°** belongs to **natal house 1**, not house 12.
+
+**Corrections:**
+
+| Transit | Previous (wrong) | Corrected |
+|---------|------------------|-----------|
+| transiting Saturn in Aries | natal house 12 | **natal house 1** |
+| transiting Neptune in Aries | natal house 12 | **natal house 1** |
+| transiting Pluto in Aquarius 3°23′ | natal house 12 | natal house 12 ✓ (unchanged) |
+
+Wrap-around houses must be treated as **two-part intervals**. See `docs/operating_protocol.md`.
+
+Regression logged in `notes/experiments.md` (21 November 2026 wrap-around test).
+
+### Skill created: strict-technical-astrological-verification
+
+Hermes training produced an internal verification skill enforcing:
+
+1. **Compute-first** — no interpretation before math
+2. **Raw positions first** — list transiting positions before aspects or houses
+3. **UTC verification** — local and UTC timestamps both shown
+4. **House-placement verification** — including wrap-around cusp logic
+5. **Aspect verification** — exact angles and orbs confirmed
+6. **Interpretation last** — only after all math is confirmed
+
+This skill codifies the permanent verification layer above the interpretation workflow.
 
 ---
 
@@ -135,6 +199,8 @@ Case patterns: `cases/dzmitry_poker/repeated_patterns.md`
 | Notation | `transiting X → natal Y` with degrees and orb |
 | Poker output | Practical instruction block required at end of every poker window analysis |
 | Math | Never invent ephemeris data — use engine output or state unavailability |
+| UTC | Always show local timestamp and UTC timestamp used |
+| Houses | Verify wrap-around cusp spans (360°/0° boundary) before assigning natal house |
 
 ---
 
@@ -189,6 +255,7 @@ Case patterns: `cases/dzmitry_poker/repeated_patterns.md`
 - Engine-verified aspect lists populated in `cases/dzmitry_poker/tournament_*.md`
 - Negative cases (non-winning sessions) for contrast
 - Orb thresholds finalized against engine data
+- Automated regression tests for UTC conversion and wrap-around house assignment (see `notes/open_questions.md`)
 
 ---
 

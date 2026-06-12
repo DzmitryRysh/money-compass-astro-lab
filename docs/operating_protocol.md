@@ -21,11 +21,42 @@ Record transiting planet positions at the target datetime:
 
 - Sign and degree (e.g., `transiting Mars 14°32′ Scorpio`)
 - Retrograde status if applicable
-- Source datetime and timezone (UTC preferred for storage)
+- **Local timestamp used** (with timezone / DST)
+- **UTC timestamp used** (converted and verified)
 
 **Role:** Ground truth. All subsequent steps depend on these positions. If positions are wrong, everything downstream is invalid.
 
 Do not interpret at this step. List only.
+
+---
+
+## Technical Verification (Permanent Rule)
+
+Before any analysis proceeds to aspects or house placement, confirm:
+
+| Check | Requirement |
+|-------|-------------|
+| **Local timestamp** | Event local datetime explicitly stated (e.g., `2026-06-11 14:30 EDT, Hollywood, FL`) |
+| **UTC timestamp** | Converted UTC datetime explicitly stated (e.g., `2026-06-11 18:30 UTC`) |
+| **Offset correct** | DST applied correctly for location and date |
+
+### UTC conversion — Hollywood, FL
+
+| Season | Zone | UTC offset |
+|--------|------|------------|
+| Summer (DST) | EDT | UTC−4 |
+| Winter | EST | UTC−5 |
+
+A validated training incident (11 June 2026) showed that **wrong local → UTC conversion produces incorrect Moon positions**. Moon and other fast-moving bodies are the first signal of a timestamp error.
+
+**Example verification block:**
+
+```
+Local:  2026-06-11 14:30 EDT (Hollywood, FL) — UTC−4
+UTC:    2026-06-11 18:30 UTC
+```
+
+Both lines are **mandatory** in every technical verification output.
 
 ---
 
@@ -69,13 +100,44 @@ Do not interpret at this step. List only.
 For each transiting planet, record which **natal house** it occupies at the event datetime.
 
 ```
-transiting Mercury → natal 5th house (whole-sign or system used: document which)
+transiting Mercury → natal 5th house (house system used: document which)
 transiting Moon   → natal 6th house
 ```
 
 **Role:** Context layer — where transiting energy lands in the native's life structure.
 
 Document the house system used (Placidus, Whole Sign, etc.) and keep it consistent within a case.
+
+---
+
+### Wrap-Around Natal Houses (360° / 0° Boundary)
+
+When adjacent cusp degrees cross the **Pisces → Aries** boundary (or any sign wrap), a single natal house spans **two segments** on the zodiac circle. Simple "between cusp A and cusp B" logic fails if the code does not handle wrap-around.
+
+**Validated example (Dzmitry natal chart):**
+
+| Cusp | Degree |
+|------|--------|
+| House 1 | Aquarius 10°0′ |
+| House 2 | Aries 16°0′ |
+
+**House 1 span (two-part interval):**
+
+1. Aquarius 10°0′ → end of Pisces (360°)
+2. Aries 0° → Aries 16°0′
+
+**Assignment rules:**
+
+| Transit position | Natal house | Notes |
+|------------------|-------------|-------|
+| Any Aries 0° – 16° | **House 1** | Was incorrectly assigned to house 12 before fix |
+| Aquarius 3°23′ (e.g., transiting Pluto) | House 12 | Correct — below Aquarius 10° cusp, in 12th-house segment |
+| transiting Saturn in Aries | **House 1** | Corrected from house 12 |
+| transiting Neptune in Aries | **House 1** | Corrected from house 12 |
+
+**Implementation rule:** Treat wrapped houses as **two-part intervals**, not a single contiguous degree range. Verify house placement against cusp table before recording Step 3.
+
+Regression reference: `notes/experiments.md` — 21 November 2026 wrap-around test.
 
 ---
 
@@ -147,9 +209,12 @@ Mixing event-chart conclusions into transit-to-natal sections without labeling i
 
 Before finalizing any analysis:
 
+- [ ] **Local timestamp** and **UTC timestamp** both explicitly stated
+- [ ] UTC offset correct for location and date (e.g., Hollywood FL: EDT UTC−4 / EST UTC−5)
 - [ ] All aspects use `transiting X → natal Y` or `transiting X → natal [N] cusp`
 - [ ] Degrees and orbs present for listed aspects
 - [ ] House system documented
+- [ ] Wrap-around natal houses handled as two-part intervals where applicable
 - [ ] Interpretation appears after computed lists
 - [ ] Event chart (if any) is in a labeled separate section
 - [ ] Practical instruction block included (poker windows)
