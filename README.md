@@ -61,6 +61,14 @@ Product code computes deterministic astrology. This repo preserves the interpret
 
 ---
 
+## Implementation Architecture
+
+For the full picture of how Hermes training connects to future Money Compass product code — layered stack (engine → patterns → agent → output), boundaries, example flows, and build order — see **[`docs/money_compass_agent_architecture.md`](docs/money_compass_agent_architecture.md)**.
+
+That document is the main bridge between this knowledge repo and implementation decisions.
+
+---
+
 ## How Hermes Training Is Stored
 
 | Artifact | File(s) |

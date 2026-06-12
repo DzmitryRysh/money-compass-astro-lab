@@ -63,6 +63,13 @@ Full detail: `docs/operating_protocol.md`
 | End-of-analysis output | `training/practical_instruction_block.md`, `docs/output_templates.md` |
 | New case intake | `cases/templates/case_template.md` |
 | Pattern classification | `docs/pattern_taxonomy.md`, `rules/scoring_dimensions.yaml` |
+| Product / implementation planning | `docs/money_compass_agent_architecture.md` |
+
+## Architecture
+
+How trained Hermes-style reasoning fits into the future Money Compass application — engine vs. agent boundaries, layered architecture, and near-term build order:
+
+**[`docs/money_compass_agent_architecture.md`](money_compass_agent_architecture.md)**
 
 ## Versioning
 
