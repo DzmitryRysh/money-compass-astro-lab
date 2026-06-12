@@ -67,6 +67,8 @@ For the full picture of how Hermes training connects to future Money Compass pro
 
 That document is the main bridge between this knowledge repo and implementation decisions.
 
+For the first deterministic astrology engine (Layer 1), see **[`docs/astro_engine_v1_spec.md`](docs/astro_engine_v1_spec.md)** — inputs, JSON contract, module layout, and test plan.
+
 ---
 
 ## How Hermes Training Is Stored

@@ -99,6 +99,8 @@ Four layers from ephemeris to user-facing output.
 
 **Purpose:** Produce reproducible astronomical facts. No interpretation.
 
+**Implementation spec:** [`docs/astro_engine_v1_spec.md`](astro_engine_v1_spec.md) — concrete v1 plan for this layer (inputs, JSON output, modules, tests, `facts` endpoint).
+
 **Owns:**
 
 | Function | Detail |
@@ -540,6 +542,7 @@ Agent can operate against engine JSON + YAML scores **before** a custom reasonin
 
 | Need | Read |
 |------|------|
+| Layer 1 engine implementation | `docs/astro_engine_v1_spec.md` |
 | Compute workflow | `docs/operating_protocol.md` |
 | Technical bugs and fixes | `training/hermes_training_summary_v1.md` |
 | Poker domain model | `training/poker_model.md` |
